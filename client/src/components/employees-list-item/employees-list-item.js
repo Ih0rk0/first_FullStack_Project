@@ -30,7 +30,7 @@ const EmployeesListItem =(props)=>{
                     <i className="fas fa-cookie"></i>
                 </button>
 
-                <button onClick={(e)=>changeList(postData(e,{userId},'http://localhost:3001/delete'))} type="button"
+                <button onClick={(e)=>changeList(postData(e,{userId},'https://first-full-stack-project-client.vercel.app/delete'))} type="button"
                         className="btn-trash btn-sm ">
                     <i className="fas fa-trash"></i>
                 </button>

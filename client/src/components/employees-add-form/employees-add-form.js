@@ -20,7 +20,7 @@ class EmployeesAddForm extends Component {
             <div className="app-add-form">
                 <h3>Добавте нового співробітника</h3>
                 <form
-                    onSubmit={(e)=>this.props.changeList(postData(e,{"name":e.target.user_name.value,"salary":e.target.salary.value},'http://localhost:3001/'))} 
+                    onSubmit={(e)=>this.props.changeList(postData(e,{"name":e.target.user_name.value,"salary":e.target.salary.value},'https://first-full-stack-project-client.vercel.app/'))} 
                     className="add-form d-flex">
                     <input name = 'user_name'
                         onChange={this.onValueChange} 

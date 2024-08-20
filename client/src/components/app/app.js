@@ -16,7 +16,7 @@ function App  () {
   }
 
   useEffect(()=>{
-      fetch('https://first-full-stack-project-client.vercel.app')
+      fetch('https://first-full-stack-project-client.vercel.app/')
       .then(data=>data.json())
       .then(data=>{
           console.log(data)
