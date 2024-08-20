@@ -11,19 +11,17 @@ const db = mysql.createPool({
     password:"BQCUIh5LDsJ0VwpX2kFy",
     database:"bin0mkfwgmbvc4yl0pkl"
 })
-db.getConnection((err)=>{
-   
-})
-app.get('/',(req,result)=>{
+
+
+app.get('https://first-full-stack-project-client.vercel.app',(req,result)=>{
     const query =" SELECT * FROM users"
     db.query(query,(err,res)=>{
         console.log(err)
         result.json(res)
-        
     })
-
 })
-app.post('/',(req,response)=>{
+
+app.post('https://first-full-stack-project-client.vercel.app',(req,response)=>{
     console.log(req.body.name, typeof(req.body.name))
     const insert =`INSERT INTO users(user_name,salary) VALUES ('${req.body.name}',${req.body.salary});`
     const select=' SELECT * FROM users'
@@ -39,7 +37,7 @@ app.post('/',(req,response)=>{
     })
 })
 
-app.post('/delete',(req,response)=>{
+app.post('https://first-full-stack-project-client.vercel.app/delete',(req,response)=>{
     console.log(req.body)
    const deleteItem =`DELETE FROM users WHERE user_id = ${req.body.userId};`
     const select=' SELECT * FROM users'
