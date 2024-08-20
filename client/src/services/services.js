@@ -10,6 +10,6 @@ async function postData(e,data,url){
     if(!res.ok){
         throw new Error(` Gould not fetch ${url} status:${res.status}`)
     }
-    return await res.json()
+    return await JSON.parse(res)
 }
 export{postData}
