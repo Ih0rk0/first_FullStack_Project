@@ -56,6 +56,42 @@ app.post('/delete',(req,response)=>{
     })
 })
 
+// оновити promotion (toggleStar)
+app.put('/users/:id/promotion', (req, res) => {
+  const id = req.params.id;
+  const { promotion } = req.body;  // boolean
+  const sql = `UPDATE users SET promotion = ? WHERE user_id = ?;`;
+  db.query(sql, [promotion, id], (err) => {
+    if (err) return res.status(500).json({ error: err });
+    // повертаємо оновлений запис
+    db.query(
+      'SELECT * FROM users WHERE user_id = ?',
+      [id],
+      (err2, result) => {
+        if (err2) return res.status(500).json({ error: err2 });
+        res.json(result[0]);
+      }
+    );
+  });
+});
+
+// оновити get_premium (toggleRise)
+app.put('/users/:id/premium', (req, res) => {
+  const id = req.params.id;
+  const { get_premium } = req.body;  // boolean
+  const sql = `UPDATE users SET get_premium = ? WHERE user_id = ?;`;
+  db.query(sql, [get_premium, id], (err) => {
+    if (err) return res.status(500).json({ error: err });
+    db.query(
+      'SELECT * FROM users WHERE user_id = ?',
+      [id],
+      (err2, result) => {
+        if (err2) return res.status(500).json({ error: err2 });
+        res.json(result[0]);
+      }
+    );
+  });
+});
 
 app.listen(3001,()=>{
     console.log('server workinh on 3001')

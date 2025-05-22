@@ -27,17 +27,31 @@ function App  () {
     const [trigger,setTrigger]=useState(1)
     const [searchStr,setSearchStr]=useState('')
   
-  const toggleStar=(id)=>{
-    setList((prevList)=>{
-      return prevList.map(item=>{
-        if(item.user_id===id){
-          return {...item, promotion:!item.promotion}
-        }
-        return item
-      })
-    })
+const toggleStar = async (id) => {
+    // знайдемо в списку старе значення
+    const old = list.find(u => u.user_id === id);
+    const newPromotion = !old.promotion;
 
-  }
+    try {
+      const resp = await fetch(
+        `https://first-full-stack-project-three.vercel.app/users/${id}/promotion`,
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ promotion: newPromotion }),
+        }
+      );
+      if (!resp.ok) throw new Error('Network response was not ok');
+      const updatedUser = await resp.json();
+
+      // оновимо локальний стейт
+      setList(prev =>
+        prev.map(u => u.user_id === id ? updatedUser : u)
+      );
+    } catch (e) {
+      console.error('Failed to toggle promotion:', e);
+    }
+  };
 
   const changeSearchStr=(str)=>{
     setSearchStr(str)
@@ -56,17 +70,29 @@ function App  () {
   }
   
 console.log(Date.now())
-  const toggleRise=(id)=>{
-    setList((prevList)=>{
-      return prevList.map(item=>{
-        if(item.user_id===id){
-          return {...item, get_premium:!item.get_premium}
-        }
-        return item
-      })
-    })
-  }
+const toggleRise = async (id) => {
+    const old = list.find(u => u.user_id === id);
+    const newPremium = !old.get_premium;
 
+    try {
+      const resp = await fetch(
+        `https://first-full-stack-project-three.vercel.app/users/${id}/premium`,
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ get_premium: newPremium }),
+        }
+      );
+      if (!resp.ok) throw new Error('Network response was not ok');
+      const updatedUser = await resp.json();
+
+      setList(prev =>
+        prev.map(u => u.user_id === id ? updatedUser : u)
+      );
+    } catch (e) {
+      console.error('Failed to toggle premium:', e);
+    }
+  };
 
   const setEmployer=(obj)=>{
     setList((prevData) => [...prevData, obj])
